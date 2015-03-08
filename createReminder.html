@@ -72,7 +72,7 @@ function onDeviceReady()
 		return false;
 	}
 
-	var date_obj=reminder_dt+" "+reminder_tm;
+	var date_obj=reminder_dt+"_"+reminder_tm;
 
 	//Creating new Date Object for Local Notification Plugin
 	reminder_date_time=new Date(date_obj);
@@ -91,14 +91,14 @@ function onDeviceReady()
 	window.localStorage.setItem("reminder"+randomKey,JSON.stringify(reminder_object));
 
 	//Using Local Notification Plugin To Schedule A Notification
-	plugin.notification.local.add({
+	cordova.plugins.notification.local.schedule({
     id:         randomKey,  //Local Notification Unique Id
     date:       reminder_date_time,   //Date Object To Trigger Notification On Specific Time
     message:    reminder_desc, //Notification Message
     title:      reminder_title,  //Notification Title
     json:       JSON.stringify({randomKey:randomKey}), //JSON Data to pass to Notification When it is clicked
     autoCancel: true, //Making it true will clear Notification from status Bar when we tap on it.
-    sound:'TYPE_ALARM' //When Notification triggers, Default Alarm Ringtone will be played.
+    sound:"good_afternoon.mp3" //When Notification triggers, Default Alarm Ringtone will be played.
 	});
 
 	//To reset form and empty all form fields

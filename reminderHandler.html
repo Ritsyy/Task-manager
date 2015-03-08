@@ -50,15 +50,15 @@ function getUrlVars()
 document.addEventListener("deviceready",onDeviceReady,false);
 function onDeviceReady()
 {
+	//Retrieving reminder key from url
+	var randomKey=getUrlVars()["reminder_key"];
+
 	//Event Listener When Someone Taps on Notification From Status Bar
-	plugin.notification.local.onclick = function (id, state, json)
+	cordova.plugins.notification.local.on ("click",function (id, state, json)
 	{  
 		//Redirecting to ReminderHandler Page with Notification ID/Partial Reminder Key
 	window.location="reminderHandler.html?reminder_key="+JSON.parse(json).randomKey;
-	}
-
-	//Retrieving reminder key from url
-	var randomKey=getUrlVars()["reminder_key"];
+	});	
 
 	//Fetching Reminder Data(In String Format) From Local Storage by passing Reminder Key
 	var reminderItemObject=window.localStorage.getItem("reminder"+randomKey);
@@ -66,7 +66,7 @@ function onDeviceReady()
 	var reminderItem=JSON.parse(reminderItemObject);
 	var reminderTitle=reminderItem['r_title'];
 	var reminderDesc=reminderItem['r_desc'];
-	var reminderTime=reminderItem['r_date']+" "+reminderItem['r_time'];
+	var reminderTime=reminderItem['r_date']+"_"+reminderItem['r_time'];
 	//Appending Reminder List to Reminder List Container
 	$("#reminder-lists").append('<div class="list-item"><div class="pure-u-1-1 notification-title">'+reminderTitle+'</div><div class="pure-u-1-1 notification-desc">'+reminderDesc+'</div><div class="pure-u-1-1 notification-date-time">'+reminderTime+'</div></div>');
 	//Deleting Reminder From Local Storage

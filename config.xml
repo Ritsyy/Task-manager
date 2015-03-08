@@ -28,4 +28,5 @@
     </author>
     <gap:plugin name="org.apache.cordova.device" />
 	<gap:plugin name="de.appplant.cordova.plugin.local-notification" />
+	<gap:plugin name="com.dileep.plugins.datepicker" />
 </widget>
